@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+       http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+       http://www.springframework.org/schema/util
+       http://www.springframework.org/schema/util/spring-util-3.0.xsd
+       ">
+    
+    
+    <bean id="prdctCar" class="my.study.ch4.property.set.list_set_map.Product"
+    	p:productId = "1"
+    	p:name = "汽车"
+    />
+    <bean id="prdctBook" class="my.study.ch4.property.set.list_set_map.Product"
+    	p:productId = "2"
+    	p:name = "书"
+    />
+    
+    <bean id="order1" class="my.study.ch4.property.set.list_set_map.Order"
+    	p:orderId="1"
+    >
+    	<property name="productList">
+    		<list>
+    			<ref bean="prdctCar"/>
+    			<ref bean="prdctBook"/>
+    		</list>
+    	</property>
+    </bean>
+    
+    <!-- 定义一个list 对象bean -->
+    <bean id="prdctCar2" class="my.study.ch4.property.set.list_set_map.Product"
+    	p:productId = "1"
+    	p:name = "汽车2"
+    />
+    <bean id="prdctBook2" class="my.study.ch4.property.set.list_set_map.Product"
+    	p:productId = "2"
+    	p:name = "书2"
+    />
+    <util:list id="productList2" list-class="java.util.ArrayList" value-type="my.study.ch4.property.set.list_set_map.Product">
+    	<ref bean="prdctCar2"/>
+    	<ref local="prdctBook2"/>
+    </util:list>
+    
+    <bean id="order2" class="my.study.ch4.property.set.list_set_map.Order"
+    	p:orderId="2"
+    >
+    	<property name="productList" ref="productList2"/>
+    </bean>
+    
+    <!-- 定义一个set -->
+    <util:set id="favorite">
+    	<value>看报</value>
+    	<value>旅游</value>
+    </util:set>
+    
+    <!-- 定义一个Map -->
+    <util:map id="emails1">
+    	<entry>
+    		<key><value>AM</value></key>
+    		<value>捡钱</value>
+    	</entry>
+    	<entry>
+    		<key><value>PM</value></key>
+    		<ref bean="prdctCar"/>
+    	</entry>
+    </util:map>
+</beans>

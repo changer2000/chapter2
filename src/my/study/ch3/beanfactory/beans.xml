@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+       http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+    
+    <!-- scope="prototype" -->   
+    <bean id="car" class="my.study.ch3.beanfactory.Car" 
+    	p:brand="红旗CA72"
+    	p:color="黑色"
+    	p:maxSpeed="200"
+    />
+    
+    <bean id="animal" class="my.study.ch3.beanfactory.lifecycle.Animal" 
+    	init-method="myInit" destroy-method="myDestroy"
+    	p:name="猎豹"
+    	p:maxSpeed="200"
+    />
+    
+    <!-- ***************** -->
+    <bean id="myBeanPostProcessor" class="my.study.ch3.beanfactory.lifecycle.MyBeanPostProcessor"/>
+    <bean id="myBeanFactoryPostProcessor" class="my.study.ch3.beanfactory.lifecycle.MyBeanFactoryPostProcessor"/>
+    
+    <!--
+	<bean id="car" class="com.baobaotao.Car" 
+		 init-method="myInit"
+		 destroy-method="myDestory"
+		 p:brand="红旗CA72"
+		 p:maxSpeed="200" 
+		 />  
+	<bean id="car" class="com.baobaotao.beanfactory.Car" 
+	    init-method="myInit"
+		destroy-method="myDestory"
+		p:brand="红旗CA72"/ -->
+		
+	<!-- ******** ch4 ********* -->
+	<bean id="carFactory" class="my.study.ch4.factory.inject.CarFactory"/>
+	
+	<bean id="car5" factory-bean="carFactory" factory-method="createCar"/>
+	<bean id="car6" class="my.study.ch4.factory.inject.CarFactory" factory-method="createCar2"/>
+	<bean id="car7" class="my.study.ch3.beanfactory.Car">
+		<property name="brand">
+			<value><![CDATA[红旗&CA74]]></value>
+		</property>
+		<property name="color"><null/></property>
+		<property name="maxSpeed" value="210"/>
+	</bean>
+	
+	<bean id="boss1" class="my.study.ch3.beanfactory.Boss"
+		p:name="TestBoss1"
+		>
+		<property name="car">
+			<ref bean="car7"/>
+		</property>
+	</bean>	
+	<bean id="boss2" class="my.study.ch3.beanfactory.Boss"
+		p:name="TestBoss2"
+		>
+		<property name="car" ref="car6" />
+	</bean>
+	<bean id="boss3" class="my.study.ch3.beanfactory.Boss"
+		p:name="TestBoss3"
+		p:car-ref="car5"
+	/>
+</beans>

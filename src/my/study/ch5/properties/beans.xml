@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+       http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+       http://www.springframework.org/schema/context 
+       http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+	
+	<context:component-scan base-package="com.baobaotao.dao"></context:component-scan>
+    <context:component-scan base-package="com.baobaotao.service"></context:component-scan>
+	
+	<!-- placeHolder方式一：  -->
+	<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<!--
+		<property name="location">
+			<value>ch5/jdbc.properties</value>
+		</property>
+		-->
+		<property name="locations">
+			<list>
+				<value>ch5/jdbc.properties</value>
+				<value>ch5/jdbc-more.properties</value>
+			</list>
+		</property>
+	</bean>
+	
+	
+	<!-- placeHolder方式二：  
+	<bean id="utf8" class="java.lang.String">
+		<constructor-arg value="utf-8"/>
+	</bean>
+	<context:property-placeholder location="ch5/jdbc.properties,ch5/jdbc-more.properties" file-encoding="utf-8"/>
+	-->
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
+    	destroy-method="close"
+    	p:driverClassName="${driverClassName}"
+    	p:url="${url}"
+    	p:username="${userName}"
+    	p:password="${password}"
+    />
+    
+    <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate"
+    	p:dataSource-ref="dataSource"
+    />
+    
+    
+</beans>
+    
