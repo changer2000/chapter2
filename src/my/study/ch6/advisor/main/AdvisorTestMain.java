@@ -2,6 +2,7 @@ package my.study.ch6.advisor.main;
 
 import my.study.ch6.advice.Seller;
 import my.study.ch6.advice.Waiter;
+import my.study.ch6.advisor.WaiterDelegate;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -30,6 +31,14 @@ public class AdvisorTestMain {
 		waiter2.greetTo("Qin");
 		waiter2.greetTo("Tom");
 		
+		/*** 控制流程切面 ***/
+		System.out.println("控制流程切面");
+		Waiter waiter3 = (Waiter) context.getBean("waiter3");
+		WaiterDelegate wd = new WaiterDelegate();
+		wd.setWaiter(waiter3);
+		waiter3.greetTo("Peter");
+		waiter3.serverTo("Peter");
+		wd.service("Peter");
 	}
 
 }

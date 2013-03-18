@@ -28,6 +28,15 @@
     	<property name="advice" ref="greetingBeforeAdvice"/>
     </bean>
     
+    <bean id="controlFlowPointcut" class="org.springframework.aop.support.ControlFlowPointcut">
+    	<constructor-arg type="java.lang.Class" value="my.study.ch6.advisor.WaiterDelegate"></constructor-arg>
+    	<constructor-arg type="java.lang.String" value="service"></constructor-arg>
+    </bean>
+    <bean id="controlFlowAdvisor" class="org.springframework.aop.support.DefaultPointcutAdvisor"
+    	p:pointcut-ref="controlFlowPointcut"
+    	p:advice-ref="greetingBeforeAdvice"
+    />
+    
     <!-- 目标 -->
    	<bean id="waiterTarget" class="my.study.ch6.advice.NaiveWaiter"/>
    	<bean id="sellorTarget" class="my.study.ch6.advice.Seller"/>
@@ -57,5 +66,11 @@
    		p:interceptorNames="dynamicAdvisor"
    		p:proxyTargetClass="true"
    		p:target-ref="waiterTarget"
+   	/>
+   	
+   	<bean id="waiter3" class="org.springframework.aop.framework.ProxyFactoryBean"
+   		p:interceptorNames="controlFlowAdvisor"
+   		p:target-ref="waiterTarget"
+   		p:proxyTargetClass="true"
    	/>
 </beans>
