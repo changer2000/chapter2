@@ -39,6 +39,15 @@ public class AdvisorTestMain {
 		waiter3.greetTo("Peter");
 		waiter3.serverTo("Peter");
 		wd.service("Peter");
+		
+		/*** 复合切点切面 ***/
+		System.out.println("复合切点切面");
+		Waiter waiter4 = (Waiter) context.getBean("waiter4");
+		WaiterDelegate wd4 = new WaiterDelegate();
+		wd4.setWaiter(waiter4);
+		waiter4.serverTo("Mum");
+		waiter4.greetTo("Mum");
+		wd4.service("Mum");
 	}
 
 }
