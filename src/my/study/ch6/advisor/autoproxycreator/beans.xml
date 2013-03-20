@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+	
+	<bean id="seller" class="my.study.ch6.advice.Seller"/>
+	<bean id="waiter" class="my.study.ch6.advice.NaiveWaiter"/>
+   	
+	<bean id="greetingBeforeAdvice" class="my.study.ch6.advice.GreetingBeforeAdvice"/>
+	
+	<bean class="org.springframework.aop.framework.autoproxy.BeanNameAutoProxyCreator"
+		p:beanNames="*er"
+		p:interceptorNames="greetingBeforeAdvice"
+		p:optimize="true"
+	/>
+
+</beans>
