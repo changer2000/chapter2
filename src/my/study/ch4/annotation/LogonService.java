@@ -1,7 +1,5 @@
 package my.study.ch4.annotation;
 
-import javax.annotation.PostConstruct;
-
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
